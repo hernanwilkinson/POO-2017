@@ -1,36 +1,17 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3064] on 14 April 2017 at 4:58:44 pm'!
-'Description Please enter a description for this package'!
-!provides: 'Idiom-Exercise' 1 0!
 !classDefinition: #NotFound category: #'Idiom-Exercise'!
 Error subclass: #NotFound
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Idiom-Exercise'!
-!classDefinition: 'NotFound class' category: #'Idiom-Exercise'!
-NotFound class
-	instanceVariableNames: ''!
 
+
 !classDefinition: #IdiomTest category: #'Idiom-Exercise'!
 TestCase subclass: #IdiomTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Idiom-Exercise'!
-!classDefinition: 'IdiomTest class' category: #'Idiom-Exercise'!
-IdiomTest class
-	instanceVariableNames: ''!
-
-!classDefinition: #CustomerBook category: #'Idiom-Exercise'!
-Object subclass: #CustomerBook
-	instanceVariableNames: 'customers'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Idiom-Exercise'!
-!classDefinition: 'CustomerBook class' category: #'Idiom-Exercise'!
-CustomerBook class
-	instanceVariableNames: ''!
-
 
 !IdiomTest methodsFor: 'testing' stamp: 'HAW 4/14/2017 16:56:37'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
@@ -96,18 +77,24 @@ test04CanNotRemoveAndInvalidCustomer
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]
 ! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:42'!
-addCustomerNamed: aName
-
-	aName isEmpty ifTrue: [ self signalCustomerNameCannotBeEmpty ].
-	(customers includes: aName) ifTrue: [ self signalCustomerAlreadyExists ].
-	
-	customers add: aName ! !
+
+!classDefinition: #CustomerBook category: #'Idiom-Exercise'!
+Object subclass: #CustomerBook
+	instanceVariableNames: 'customers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Idiom-Exercise'!
 
 !CustomerBook methodsFor: 'testing' stamp: 'HernanWilkinson 7/6/2011 17:56'!
 includesCustomerNamed: aName
 
 	^customers includes: aName ! !
+
+!CustomerBook methodsFor: 'testing' stamp: 'HernanWilkinson 7/6/2011 17:48'!
+isEmpty
+	
+	^customers isEmpty  ! !
+
 
 !CustomerBook methodsFor: 'initialization' stamp: 'HernanWilkinson 7/6/2011 17:42'!
 initialize
@@ -115,10 +102,14 @@ initialize
 	super initialize.
 	customers := OrderedCollection new! !
 
-!CustomerBook methodsFor: 'testing' stamp: 'HernanWilkinson 7/6/2011 17:48'!
-isEmpty
+
+!CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:42'!
+addCustomerNamed: aName
+
+	aName isEmpty ifTrue: [ self signalCustomerNameCannotBeEmpty ].
+	(customers includes: aName) ifTrue: [ self signalCustomerAlreadyExists ].
 	
-	^customers isEmpty  ! !
+	customers add: aName ! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:56'!
 numberOfCustomers
@@ -139,6 +130,12 @@ signalCustomerAlreadyExists
 signalCustomerNameCannotBeEmpty 
 
 	self error: self class customerCanNotBeEmptyErrorMessage ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CustomerBook class' category: #'Idiom-Exercise'!
+CustomerBook class
+	instanceVariableNames: ''!
 
 !CustomerBook class methodsFor: 'error messages' stamp: 'HernanWilkinson 7/6/2011 17:57'!
 customerAlreadyExistsErrorMessage
